@@ -5,6 +5,8 @@ Faye.URI = {
 
   isSameOrigin: function(uri) {
     var location = Faye.ENV.location;
+    if (typeof location === "undefined" ||
+        window.navigator.product === "ReactNative") return true;
     return uri.protocol === location.protocol &&
            uri.hostname === location.hostname &&
            uri.port     === location.port;
