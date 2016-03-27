@@ -1,12 +1,11 @@
-(function() {
 'use strict';
 
 var timeout = setTimeout, defer;
 
-if (typeof setImmediate === 'function')
-  defer = function(fn) { setImmediate(fn) };
-else if (typeof process === 'object' && process.nextTick)
+if (typeof process === 'object' && process.nextTick)
   defer = function(fn) { process.nextTick(fn) };
+else if (typeof setImmediate === 'function')
+  defer = function(fn) { setImmediate(fn) };
 else
   defer = function(fn) { timeout(fn, 0) };
 
@@ -159,9 +158,4 @@ Promise.rejected = function(reason) {
   return new Promise(function(fulfill, reject) { reject(reason) });
 };
 
-if (typeof Faye === 'undefined')
-  module.exports = Promise;
-else
-  Faye.Promise = Promise;
-
-})();
+module.exports = Promise;
